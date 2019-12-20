@@ -11,8 +11,10 @@ class Ruisekiwa:
                 continue
             lst_sum[a] = lst_sum[a-1] + a
         return lst_sum
-            
+
     def query(self,l,r):
+        if l > r:
+            return 0 #クエリの範囲が交差する場合
         return self.lst_sum[r] - self.lst_sum[l-1]
 
 
@@ -24,4 +26,4 @@ if __name__ == "__main__":
     print(r_lst.lst_sum)
     print("4,7=",r_lst.query(4,7))
 
-        
+
