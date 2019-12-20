@@ -9,7 +9,7 @@ class Ruisekiwa:
             if a == 0:
                 lst_sum[a] = 0
                 continue
-            lst_sum[a] = lst_sum[a-1] + a
+            lst_sum[a] = lst_sum[a-1] + lst_a[a]
         return lst_sum
 
     def query(self,l,r):
@@ -20,10 +20,12 @@ class Ruisekiwa:
 
 
 if __name__ == "__main__":
-    lst = [1,2,3,4,5,6,7,8,9,10]
+    lst = [10,9,8,7,6,5,4,3,2,1]
     r_lst = Ruisekiwa(lst)
     print(r_lst.lst_a)
     print(r_lst.lst_sum)
-    print("4,7=",r_lst.query(4,7))
+    r = 3
+    l=5
+    print(r,"~",l,"=",r_lst.query(r,l))
 
 
