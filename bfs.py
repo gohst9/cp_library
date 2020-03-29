@@ -3,7 +3,7 @@ from collections import deque
 def bfs(graph,v=0):
     #args:
     #   graph グラフ本体
-    #   start スタート地点
+    #   v 現在注目しているノード（スタート地点）
     dist = [-1]*len(graph)
     q = deque()
     q.append(v)
