@@ -22,5 +22,16 @@ def CBT_fill(lst,monoid=0):
         n *= 2
     return lst + [monoid] * (-size%n)
 
+#ふたつのリストの要素が一致するところは1、一致しないところは0のリストを返す
+def list_or(lst1,lst2):
+    if len(lst1) != len(lst2):
+        return None
+    length = len(lst1)
+    new_lst = [0] * length
+    for i in range(length):
+        if lst1[i] == lst2[i]:
+            new_lst[i] = lst1[i]
+
+    return new_lst
 
 
