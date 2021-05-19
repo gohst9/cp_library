@@ -34,6 +34,17 @@ def list_or(lst1,lst2):
 
     return new_lst
 
+#9の倍数かどうかを判定（すべての桁の総和を求めることを1桁になるまで繰り返す）
+def is_multiple_of_nine(n):
+    s = str(n)
+    while len(s) > 1:
+        digit_total = 0
+        for c in s:
+            digit_total += int(c)
+
+        s = str(digit_total)
+    return int(s) == 9
+
 #test
 #test2
 #test3
