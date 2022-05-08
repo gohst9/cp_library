@@ -3,6 +3,13 @@ import pyxel
 goal_color = 6
 start_color = 9
 
+#input.txtファイルを読み込み、pyxelで迷路を作る
+#input.txtファイルは"#"が壁、"."が床で示されたテキストファイル
+#例
+# .#.
+# #..
+# ..#
+
 class App:
     def __init__(self,file_name="input.txt",sx=0,sy=0,gx=1,gy=1,s_width=4,s_height=4):
         self.sx = sx
