@@ -1,7 +1,8 @@
 
 class Sparse_table:
 
-    def __init__(self,lst):
+    def __init__(self,lst,func=min):
+        self.func = func
         self.lst = lst
         self.n = len(lst)
         self.log_table = self.create_log_table()
@@ -26,25 +27,29 @@ class Sparse_table:
                     break
                 ind1 = table[i][k-1]
                 ind2 = table[i+(1 << (k-1))][k-1]
-                if self.lst[ind1] < self.lst[ind2]:
+                if self.func(self.lst[ind1],self.lst[ind2]) == self.lst[ind1]:
                     table[i][k] = ind1
                 else:
                     table[i][k] = ind2
+##                if self.lst[ind1] < self.lst[ind2]:
+##                    table[i][k] = ind1
+##                else:
+##                    table[i][k] = ind2
         return table
 
     def query(self,l,r):
         k = self.log_table[r-l]
         ind1 = self.table[l][k]
         ind2 = self.table[r-(1 << k)][k]
-        return min(self.lst[ind1],self.lst[ind2])
+        return self.func(self.lst[ind1],self.lst[ind2])
 
 
 def main():
     lst = [2,3,5,10,3,7,10,3,4,5,3,8,9,2,3]
-    s = Sparse_table(lst)
+    s = Sparse_table(lst,max)
     print(s.log_table)
     print(s.table)
-    print(s.query(2,5))
+    print(s.query(0,3))
 
 if __name__ == '__main__':
     main()
