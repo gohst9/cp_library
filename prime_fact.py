@@ -1,22 +1,33 @@
+import math
+
+def factorize(n):
+    factor_counter = []
+    temp = n
+    for i in range(2,math.ceil(math.sqrt(n))):
+        if temp%i !=0:
+            continue
+        fact_count = 0
+        while temp % i == 0:
+            fact_count += 1
+            temp //= i
+        factor_counter.append((i,fact_count))
+
+    #最後に素数が残っているとき
+    if temp != 1:
+        factor_counter.append((temp,1))
+
+    #nが素数のとき
+    if not factor_counter:
+        factor_counter.append((n,1))
+
+    return factor_counter
+
+
+
+
 def main():
     n = int(input())
-    print(prime_fact(n))
-
-def prime_fact(n):
-    temp = n
-    if n == 1:
-        return []
-    facts = []
-    while temp % 2 == 0:
-        temp //= 2
-        facts.append(2)
-
-    for i in range(3,n//2+1,2):
-        while temp % i == 0:
-            facts.append(i)
-            temp //= i
-    return facts
-
+    print(factorize(n))
 
 if __name__ == '__main__':
     main()
