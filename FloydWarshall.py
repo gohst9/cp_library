@@ -1,29 +1,26 @@
 
 def wf(graph,inf = 1 << 61):
-    global total
-    pre_graph = graph
+    total = 0 #ABC208 D問題　Shortest Path Queries 2用
     #graph[i][j] = iからjへ行くのにかかるコスト
     w = len(graph[0])
     h = len(graph)
     assert w == h,"グラフの形が不適切"
     for k in range(w):
-        new_graph = [[inf for _ in range(w)] for _ in range(h)]
         for i in range(w):
             for j in range(w):
-                new_graph[i][j] = min(pre_graph[i][j],pre_graph[i][k] + pre_graph[k][j])
-                if new_graph[i][j] < inf:
-                    total += new_graph[i][j]
-        pre_graph = new_graph
-    return new_graph
+                graph[i][j] = min(graph[i][j],graph[i][k] + graph[k][j])
+                if graph[i][j] < inf:
+                    total += graph[i][j]
+    return graph #,total
 
 class Ad_lst:
-    def __init__(self,n,directional = True,inf = 1 << 61):
+    def __init__(self,n,directional = True,inf = float("inf")):
         self.n = n
         self.lst = [[inf for _ in range(n)] for _ in range(n)]
         self.directional = directional
         self.graph_init()
 
-    def add(self,a,b,cost,input_zero_indexed = False):
+    def add(self,a,b,cost,input_zero_indexed = True):
         if not input_zero_indexed:
             a -= 1
             b -= 1
@@ -43,11 +40,17 @@ class Ad_lst:
 
 
 
-
-
-
 def main():
-    pass
+    n,m = map(int,input().split())
+    graph = Ad_lst(n)
+    for _ in range(m):
+        a,b,c = map(int,input().split())
+        graph.add(a,b,c,input_zero_indexed = False)
+    graph = graph.get()
+    print(wf(graph))
+
+
+
 
 
 if __name__ == '__main__':
