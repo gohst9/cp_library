@@ -29,15 +29,20 @@ class Sequence:
     def is_end(self):
         return self.pointer >= len(self.lst)
 
+    def run(self):
+        answer = []
+        while not self.is_end():
+            self.ready()
+            for s in self:
+                pass
+            answer.append(self.get())
+        return answer
+
 
 def main():
-    lst = [1,1,1,1,1,0,0,0,0,1,1,1,0,0,0]
+    lst = list(map(int,input().split()))
     seq = Sequence(lst)
-    while not seq.is_end():
-        seq.ready()
-        for s in seq:
-            pass
-        print(*seq.get())
+    print(seq.run())
 
 
 if __name__ == '__main__':
