@@ -1,48 +1,56 @@
-class Sequence:
-    #同じ要素が続くまで回り続け、切り替わったタイミングで止まるイテレータ
-    def __init__(self,lst,pointer=0,pre=None):
-        self.lst = lst
-        self.pre = pre
-        self.pointer = pointer
-        self.length = 0
 
-    def __iter__(self):
-        return self
+def wf(graph,inf = float("inf")):
+    total = 0 #ABC208 D問題　Shortest Path Queries 2用
+    #graph[i][j] = iからjへ行くのにかかるコスト
+    w = len(graph[0])
+    h = len(graph)
+    assert w == h,"グラフの形が不適切"
+    for k in range(w):
+        for i in range(w):
+            for j in range(w):
+                graph[i][j] = min(graph[i][j],graph[i][k] + graph[k][j])
+                if graph[i][j] < inf:
+                    total += graph[i][j]
+    return total
 
-    def __next__(self):
-        if self.is_end() or self.pre != self.lst[self.pointer]:
-            raise StopIteration()
-        ret = self.lst[self.pointer]
-        self.pointer += 1
-        self.length += 1
-        return ret
+class Ad_lst:
+    def __init__(self,n,directional = True,inf = float("inf")):
+        self.n = n
+        self.lst = [[inf for _ in range(n)] for _ in range(n)]
+        self.directional = directional
+        self.graph_init()
 
-    def ready(self):
-        #一番最初や要素の切り替わりの後に行う。
-        self.pre = self.lst[self.pointer]
-        self.length = 0
+    def add(self,a,b,cost,input_zero_indexed = True):
+        if not input_zero_indexed:
+            a -= 1
+            b -= 1
+        self.lst[a][b] = cost
+        if not self.directional:
+            self.lst[b][a] = cost
 
     def get(self):
-        #現在見ている連続している要素とその長さを返す。
-        return (self.pre,self.length)
+        return self.lst
 
-    def is_end(self):
-        return self.pointer >= len(self.lst)
+    def graph_init(self):
+        #隣接リストで、自分自身への移動コストを0にする
+        n = len(self.lst)
+        for i in range(n):
+            self.lst[i][i] = 0
 
-    def run(self):
-        answer = []
-        while not self.is_end():
-            self.ready()
-            for s in self:
-                pass
-            answer.append(self.get())
-        return answer
+
 
 
 def main():
-    lst = list(map(int,input().split()))
-    seq = Sequence(lst)
-    print(seq.run())
+    n,m = map(int,input().split())
+    graph = Ad_lst(n)
+    for _ in range(m):
+        a,b,c = map(int,input().split())
+        graph.add(a,b,c,input_zero_indexed = False)
+    graph = graph.get()
+    print(wf(graph))
+
+
+
 
 
 if __name__ == '__main__':
