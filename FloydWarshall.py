@@ -1,5 +1,5 @@
 
-def wf(graph,inf = 1 << 61):
+def wf(graph,inf = float("inf")):
     total = 0 #ABC208 D問題　Shortest Path Queries 2用
     #graph[i][j] = iからjへ行くのにかかるコスト
     w = len(graph[0])
