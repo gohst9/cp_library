@@ -1,55 +1,49 @@
-class Tree:
-    def __init__(self,lst,func = lambda a,b:a+b,monoid=0):
+class SegTree:
+
+    def __init__(self,lst=[],func=lambda a,b:a+b,e=0):
         self.func = func
-        self.monoid = monoid
-        size = len(lst)
-        n = 1
-        #nを元の配列のサイズ以上になる最小の2べきにする
-        while(n < size):
-            n *= 2
-        self.n = n
+        self.e = e
+        n = len(lst)
+        x = 1
+        while x < n:
+            x *= 2
+        self.n = x
+        self.seg = [e] * (self.n * 2)
+        for i,v in enumerate(lst):
+            self.update(i,v)
 
-        #木構造用リストのを初期化　今は暫定で0を入れているが後にモノイドを受け取るようにする。
-        self.seg = [self.monoid] * (2 * n -1)
-        for i in range(len(lst)):
-            self.seg[i+n-1] = lst[i]
 
-        for i in range(n-1-1, -1 , -1):
-            self.seg[i] = self.func(self.seg[2*i+1],self.seg[2*i+2])
 
-        for i in self.seg:
-            print(i)
-        print()
 
-    def update(self,i,val):
-        #もともとのリストでi番目にあたる数をvalに置き換える。
-        i += (self.n - 1) #n-1はオフセット。木構造用ツリーの最下段へ。
-        self.seg[i] = val
+    def update(self,i,x):
+        i += self.n-1
+        self.seg[i] = x
         while i > 0:
-            i = (i - 1) // 2
-            self.seg[i] = self.func(self.seg[2*i +1],self.seg[2*i+ 2])
-        for i in self.seg:
-            print(i)
+            i = (i-1)//2
+            self.seg[i] = self.func(self.seg[i*2+1],self.seg[i*2+2])
 
+    def query(self,a,b):
+        assert a <= b
+        return self.sub_query(a,b,0,0,self.n)
 
+    def sub_query(self,a,b,k,l,r):
+        if b <= l or a >= r: #範囲外
+            return self.e
+        elif a <= l and r <= b:#すべて範囲内
+            return self.seg[k]
+        else:
+            l_ans = self.sub_query(a,b,k*2+1,l,(l+r)//2)
+            r_ans = self.sub_query(a,b,k*2+2,(l+r)//2,r)
+            return self.func(l_ans,r_ans)
 
-    def query(self,a,b,p=0,l=0,r=-1):
-        if r<0:
-            r = self.n
-        if r <= a or b <= l:
-            return self.monoid
-        if a <= l and r <= b:
-            return self.seg[p]
+def main():
+    lst = [1,2,3,4,5,6,7,8]
+    seg = SegTree(lst,func=max)
+    ans = seg.query(0,3)
+    print(ans)
+    seg.update(5,5)
+    ans = seg.query(4,5)
+    print(ans)
 
-        #自分の理解力が追い付かなかったので再帰関数で実装している
-        #しかしpythonの再帰はドチャクソ遅いという話……
-        #いずれはビット演算を使ったメチャ早という噂の実装方法に変えていきたい。
-
-        vl = self.query(a,b,2*p+1,l,(l+r)//2)
-        vr = self.query(a,b,2*p+2,(l+r)//2,r)
-        return self.func(vl,vr)
-
-
-t = Tree([1,2,3,4])
-
-print("answer = ",t.query(0,2))
+if __name__ == '__main__':
+    main()
