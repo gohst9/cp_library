@@ -3,7 +3,7 @@ import math
 def factorize(n):
     factor_counter = []
     temp = n
-    for i in range(2,math.ceil(math.sqrt(n))):
+    for i in range(2,math.ceil(math.sqrt(n))+1):
         if temp%i !=0:
             continue
         fact_count = 0
