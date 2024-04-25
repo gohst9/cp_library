@@ -30,7 +30,7 @@ def create_kaijo_table(n,mod=10**9+7):
     kaijo[0] = 1
     for i in range(1,n+1):
         kaijo[i] = kaijo[i-1]*i % mod
-    kaijo[0] = 0
+    kaijo[0] = 1
     return kaijo
 def create_gyakugen_table(n,kaijo,mod=10**9+7):
     gyakugen = [0 for _ in range(n+1)]
@@ -47,7 +47,7 @@ def main():
     mod = 10**9+7
     kaijo = create_kaijo_table(n+k,mod)
     gyakugen = create_gyakugen_table(n+k,kaijo,mod)
-    print(nCr(n+k-1,k,mod,kaijo,gyakugen))
+    print(nCr(n+k-1,k,mod))
 
 if __name__ == '__main__':
     main()
