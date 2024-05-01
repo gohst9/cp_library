@@ -4,7 +4,7 @@ def bin_power(a,n,mod=1000000007):
         if n % 2 != 0:
             ans *= a
             ans %= mod
-        a = a * a % mod
+        a = (a * a) % mod
         n //= 2
     return ans % mod
 
@@ -15,7 +15,9 @@ def nCr(n,r,mod=1000000007,kaijo=None,gyakugen=None):
     if kaijo==None and gyakugen==None:
         for i in range(r):
             x *= (n-i)
+            x %= mod
             y *= (i+1)
+            y %= mod
         return (x * bin_power(y,mod-2,mod)) % mod
 
     #事前に階乗テーブル、階乗の逆元テーブルを事前計算した場合
@@ -47,7 +49,7 @@ def main():
     mod = 10**9+7
     kaijo = create_kaijo_table(n+k,mod)
     gyakugen = create_gyakugen_table(n+k,kaijo,mod)
-    print(nCr(n+k-1,k,mod))
+    print(nCr(n+k-1,k,mod,kaijo,gyakugen))
 
 if __name__ == '__main__':
     main()
