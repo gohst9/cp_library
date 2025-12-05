@@ -1,6 +1,11 @@
 from collections import deque
 import unittest
 
+#参考にしたサイト　
+#https://output-zakki.com/maximum_flow/
+#https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja
+#でAC確認済
+
 class Flow:
     def __init__(self,edges,n):
         self.INF = 10 ** 30
