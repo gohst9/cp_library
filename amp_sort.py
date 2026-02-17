@@ -1,4 +1,19 @@
 from functools import cmp_to_key
+#https://atcoder.jp/contests/abc442/tasks/abc442_e
+#Laser Takahashiを参考
+#通常は反時計周りに使用
+#問題によって時計周りに使用するときは逆順に
+
+
+def cross(a,b):
+    #外積
+    ax,ay = a
+    bx,by = b
+    return ax * by - ay * bx
+    #正の数なら反時計周り
+    #負の数なら時計周り
+    #0なら同じ角度
+    #数値の大きさは平行四辺形の面積
 
 def cmp(a,b):
     #a (x1,y1)
