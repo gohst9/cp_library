@@ -12,12 +12,14 @@ def cul_s(board):
     return s
 
 def get_sum(y1,x1,y2,x2,s):
-    total = s[y2+1][x2+1] - s[y1][x2+1] - s[y2+1][x1] + s[y1][x1]
+    #半開区間にしよう
+    total = s[y2][x2] - s[y1][x2] - s[y2][x1] + s[y1][x1]
     return total
+
 
 def get_sum2(y,x,s):
     #(0,0)からの総面積だけ求めればいいとき用
-    total = s[y+1][x+1]
+    total = s[y][x]
     return total
 
 def main():
