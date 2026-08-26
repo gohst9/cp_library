@@ -1,6 +1,9 @@
 from collections import deque
 import unittest
 
+#AOJ
+#https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja
+#で確認
 
 def bfs(graph,s=0):
     here = 0
