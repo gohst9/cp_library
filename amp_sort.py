@@ -3,7 +3,8 @@ from functools import cmp_to_key
 #Laser Takahashiを参考
 #通常は反時計周りに使用
 #問題によって時計周りに使用するときは逆順に
-
+#E - Most Brilliant Starry Sky 
+#https://atcoder.jp/contests/abc481/tasks/abc481_e
 
 def cross(a,b):
     #外積
@@ -16,13 +17,6 @@ def cross(a,b):
     #数値の大きさは平行四辺形の面積
 
 def cmp(a,b):
-    #a (x1,y1)
-    #b (x2,y2)
-    #X軸を含まず反時計回り
-    #Y=0 X > 0 が反時計周りの最初
-    #1なら反時計まわり
-    #0なら同じ角度
-    #-1なら時計まわり
     ax,ay = a
     bx,by = b
     ah = ay < 0 or (ay ==  0 and ax < 0)
