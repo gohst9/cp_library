@@ -1,4 +1,7 @@
 
+#参考URL
+#https://cympfh.cc/procon/string.manacher.html
+
 import unittest
 
 def manacher(s):
